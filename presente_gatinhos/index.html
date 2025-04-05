@@ -1,0 +1,81 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Presente Surpresa 🎁</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background-color: #ffe4ec;
+      color: #d63384;
+      text-align: center;
+      padding: 50px;
+    }
+    input, button {
+      padding: 10px;
+      margin: 10px;
+      border-radius: 10px;
+      border: 2px solid #d63384;
+      font-size: 16px;
+    }
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎁 Bem-vindo ao seu presente secreto! 🎁</h1>
+  <p>Digite a senha mágica para abrir a surpresa:</p>
+  <input type="password" id="senha" placeholder="Digite a senha..." />
+  <button onclick="verificarSenha()">Abrir Presente</button>
+  <p id="mensagemErro" style="color: red;"></p>
+
+  <div id="presente" class="hidden">
+    <h2>✨ Tcharam! ✨</h2>
+    <p>Você acertou a senha! Aqui vai um presente cheio de amor 😍</p>
+    <a href="quiz-namoro.html"><button>Ir para o Quiz</button></a>
+  </div>
+
+  <script>
+    function verificarSenha() {
+      const senha = document.getElementById("senha").value;
+      const senhaCorreta = "Amorr";
+      const mensagem = document.getElementById("mensagemErro");
+      const presente = document.getElementById("presente");
+
+      if (senha === senhaCorreta) {
+        mensagem.textContent = "";
+        presente.classList.remove("hidden");
+      } else {
+        mensagem.textContent = "Senha errada 😿 Tente de novo!";
+      }
+
+      
+    }
+    function iniciarContador() {
+      const destino = new Date("2025-04-22T00:00:00").getTime(); // próximo mês juntos
+      const contador = document.getElementById("contador");
+
+      const intervalo = setInterval(() => {
+        const agora = new Date().getTime();
+        const distancia = destino - agora;
+
+        if (distancia < 0) {
+          clearInterval(intervalo);
+          contador.innerText = "🎊 Chegou nosso dia!";
+          return;
+        }
+
+        const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        contador.innerText = `⏳ Faltam ${dias}d ${horas}h ${minutos}m ${segundos}s para nosso próximo mês juntos!`;
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

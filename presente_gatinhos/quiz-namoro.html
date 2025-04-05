@@ -1,0 +1,170 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quiz do Amor 💘</title>
+  <style>
+    body {
+      font-family: "Comic Sans MS", cursive;
+      background-color: #fff0f5;
+      color: #c2185b;
+      text-align: center;
+      padding: 40px;
+    }
+    .pergunta {
+      margin-bottom: 30px;
+      background: #ffe6f0;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 10px #f8bbd0;
+      transition: transform 0.2s;
+    }
+    .pergunta:hover {
+      transform: scale(1.02);
+    }
+    button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      background-color: #f8bbd0;
+      color: #880e4f;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s ease-in-out;
+    }
+    button:hover {
+      background-color: #ffccd5;
+      transform: scale(1.05) rotate(-1deg);
+      box-shadow: 0 4px 10px rgba(255, 192, 203, 0.6);
+    }
+    .resposta {
+      font-weight: bold;
+      margin-top: 10px;
+      font-size: 18px;
+    }
+    #final {
+      margin-top: 40px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    #contador {
+      font-size: 20px;
+      margin-top: 15px;
+      color: #6a1b9a;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>💑 Quiz do Nosso Amor 💑</h1>
+
+  <div class="pergunta" id="q1">
+    <p>1. Qual o dia do nosso aniversário de namoro?</p>
+    <button onclick="verificar(1, 'a')">a) 14 de Fevereiro</button>
+    <button onclick="verificar(1, 'b')">b) 22 de Novembro</button>
+    <button onclick="verificar(1, 'c')">c) 11 de Junho</button>
+    <p class="resposta" id="r1"></p>
+  </div>
+
+  <div class="pergunta" id="q2">
+    <p>2. Qual desses é meu animal favorito?</p>
+    <button onclick="verificar(2, 'a')">a) Cachorros 🐶</button>
+    <button onclick="verificar(2, 'b')">b) Gatos 🐱</button>
+    <button onclick="verificar(2, 'c')">c) Coelhos 🐰</button>
+    <p class="resposta" id="r2"></p>
+  </div>
+
+  <div class="pergunta" id="q3">
+    <p>3. Qual dessas é a minha cor favorita?</p>
+    <button onclick="verificar(3, 'a')">a) Vermelho ❤️</button>
+    <button onclick="verificar(3, 'b')">b) Azul 💙</button>
+    <button onclick="verificar(3, 'c')">c) Rosa 💗</button>
+    <p class="resposta" id="r3"></p>
+  </div>
+
+  <div class="pergunta" id="q4">
+    <p>4. Qual é minha flor favorita?</p>
+    <button onclick="verificar(4, 'a')">a) Rosa amarela</button>
+    <button onclick="verificar(4, 'b')">b) Girassóis</button>
+    <button onclick="verificar(4, 'c')">c) Jasmin</button>
+    <p class="resposta" id="r4"></p>
+  </div>
+
+  <div class="pergunta" id="q5">
+    <p>5. Qual dia é meu aniversário</p>
+    <button onclick="verificar(5, 'a')">a) 16 junho</button>
+    <button onclick="verificar(5, 'b')">b) 11 de maio</button>
+    <button onclick="verificar(5, 'c')">c) 11 de junho</button>
+    <p class="resposta" id="r5"></p>
+  </div>
+
+  <button onclick="mostrarResultado()">Ver Resultado 💌</button>
+
+  <div id="final"></div>
+  <div id="contador"></div>
+
+  <script>
+    const respostasCorretas = { 1: 'b', 2: 'a', 3: 'a', 4: 'a', 5: 'c' };
+    const respondidas = {};
+
+    function verificar(numero, resposta) {
+      respondidas[numero] = resposta;
+      const correta = respostasCorretas[numero];
+      const elemento = document.getElementById("r" + numero);
+      if (resposta === correta) {
+        elemento.innerHTML = "✅ Acertou, amorzinho! 😍";
+        elemento.style.color = "green";
+      } else {
+        elemento.innerHTML = "❌ Ops! Não foi essa 😅";
+        elemento.style.color = "red";
+      }
+    }
+
+    function mostrarResultado() {
+      const total = Object.keys(respostasCorretas).length;
+      let acertos = 0;
+
+      for (let i = 1; i <= total; i++) {
+        if (respondidas[i] === respostasCorretas[i]) acertos++;
+      }
+
+      const final = document.getElementById("final");
+      if (acertos === total) {
+        final.innerText = "🎉 Parabéns meu amor! Você acertou tudo!";
+      } else {
+        final.innerText = "💔 Não foi dessa vez, amor! Mas eu te amo mesmo assim.";
+      }
+
+      iniciarContador();
+    }
+
+    function iniciarContador() {
+      const destino = new Date("2025-04-22T00:00:00").getTime(); // próximo mês juntos
+      const contador = document.getElementById("contador");
+
+      const intervalo = setInterval(() => {
+        const agora = new Date().getTime();
+        const distancia = destino - agora;
+
+        if (distancia < 0) {
+          clearInterval(intervalo);
+          contador.innerText = "🎊 Chegou nosso dia!";
+          return;
+        }
+
+        const dias = Math.floor(distancia / (1000 * 60 * 60 * 24));
+        const horas = Math.floor((distancia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutos = Math.floor((distancia % (1000 * 60 * 60)) / (1000 * 60));
+        const segundos = Math.floor((distancia % (1000 * 60)) / 1000);
+
+        contador.innerText = `⏳ Faltam ${dias}d ${horas}h ${minutos}m ${segundos}s para nosso próximo mês juntos!`;
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
